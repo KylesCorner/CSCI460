@@ -1,6 +1,0 @@
-ls &                                 # will background the LS command (you'll have a ready prompt) but will show standard output and standard error
-ls > /dev/null &                     # will do LS in background showing only standard error
-ls > /dev/null 2>&1 &                # will execute the LS command discarding any output        
-ls > ls_output.txt &                 # will background LS and store the output in ls_output.txt while error still on video
-ls > ls_output.txt 2>ls_error.log &  # will put LS output in ls_output.txt and errors in ls_error.log
-ls > ls_output_all.txt 2>&1 &        # will put both LS standard error and standard output to same output_all.txt
