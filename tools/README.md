@@ -25,7 +25,7 @@ Near the top of the file there should be two variables that need to be remapped.
 - `LOG_DIR` should be the path to the directory where you want error and log
   files to be stored.
 
-### Useful Example
+### Example
 ```bash
 sudo ./init_make.sh
 ```
@@ -44,7 +44,7 @@ wget https://github.com/KylesCorner/CSCI460/blob/master/tools/grub-menu.sh
 sudo chmod +x grub-menu.sh
 ```
 
-### Useful Example
+### Example
 ```bash
 sudo ./grub-menu.sh
 ```
@@ -74,7 +74,7 @@ My configuration has some extra keybinds and side effects.
 - `o and O` keeps you in command mode instead of putting you into insert mode
   after creating a new line.
 
-## Installation
+### Installation
 Paste this into your terminal.
 ```bash
 sudo apt install vim
@@ -82,7 +82,7 @@ cd ~
 wget https://github.com/KylesCorner/CSCI460/blob/master/tools/.vimrc
 ```
 
-## Useful Example
+### Example
 ```bash
 vim textfile.txt
 ```
