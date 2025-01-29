@@ -17,7 +17,7 @@
 
 # Define the path to your log folder. These will have to be changed
 # depending on your system.
-LOG_DIR="/home/kyle/scripts/bash/logs/"
+LOG_DIR="/home/kyle/code/tools/logs/"
 KERNEL_DIR="/home/kernel/linux-6.8/"
 
 # Create the log directory if it doesn't exist
