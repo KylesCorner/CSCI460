@@ -62,16 +62,27 @@ From [vims website](https://www.vim.org/)
 > any kind of text very efficient. It is included as "vi" with most UNIX systems
 > and with Apple OS X.
 Here is my configuration for vim on my virtual machine. Vim has a steep learning
-curve, but in my opinion it is the fastest way to write code. [Here is a list of
-the default keybinds and commands](https://vim.rtorr.com/).
+curve, but in my opinion it is the fastest way to write code. Here is a list of
+the [default keybinds and commands](https://vim.rtorr.com/). Here is a brief
+[lesson on vim](https://datascientest.com/en/vim-the-comprehensive-guide-to-this-text-editor)
 
 My configuration has some extra keybinds and side effects.
 - `jk` pressed in quick succession puts you into command mode. Equivalent to `esc`.
-- '<Space>s' turns on spell check.
-- '<Space>l' toggles tab indicator.
-- 'o and O' keeps you in command mode instead of putting you into insert mode
+- `<Space>s` turns on spell check.
+- `<Space>l` toggles tab indicator.
+- `o and O` keeps you in command mode instead of putting you into insert mode
   after creating a new line.
 
-
-
 ## Installion
+Paste this into your terminal.
+```bash
+sudo apt install vim
+cd ~
+wget https://github.com/KylesCorner/CSCI460/blob/master/tools/.vimrc
+```
+
+## Useful Example
+```bash
+vim textfile.txt
+```
+
