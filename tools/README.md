@@ -63,8 +63,6 @@ From [vims website](https://www.vim.org/)
 > and with Apple OS X.
 Here is my configuration for vim on my virtual machine. Vim has a steep learning
 curve, but in my opinion it is the fastest way to write code. Here is a list of
-the [default keybinds and commands](https://vim.rtorr.com/). Here is a brief
-[lesson on vim](https://datascientest.com/en/vim-the-comprehensive-guide-to-this-text-editor)
 
 My configuration has some extra keybinds and side effects.
 - `jk` pressed in quick succession puts you into command mode. Equivalent to `esc`.
@@ -85,4 +83,4 @@ wget https://github.com/KylesCorner/CSCI460/blob/master/tools/.vimrc
 ```bash
 vim textfile.txt
 ```
-
+Here is a brief [lesson on vim](https://datascientest.com/en/vim-the-comprehensive-guide-to-this-text-editor).
