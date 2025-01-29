@@ -30,7 +30,7 @@ Near the top of the file there should be two variables that need to be remapped.
 
 
 ## Grub Menu(Fixed)
-This is Ahn's script from the [programming
+`grub-menu.sh` is Ahn's script from the [programming
 assignment](https://canvas.umt.edu/courses/18301/assignments/228633).
 I fixed the syntax errors. The script doesn't actully affect grub in any way. It
 just views the configuration file with a pretty menu, with no way to change
@@ -39,4 +39,21 @@ anything. But we dont need to for the assignment so that fine.
 ### Installation
 Paste this into your terminal.
 ```bash
+wget https://github.com/KylesCorner/CSCI460/blob/master/tools/grub-menu.sh
+sudo chmod +x grub-menu.sh
 ```
+
+### Useful Example
+```bash
+sudo ./grub-menu.sh
+```
+On the left side of this menu you will see numbers like this 1<0 or 1<1. These
+are the menu id's associated with that kernel. If you want to boot into another
+kernel:
+```bash
+sudo grub-reboot 1<YOUR_NUMBER
+sudo reboot now
+```
+`grub-reboot` does not reboot your computer. It assigns a kernel to boot into
+next restart.
+
