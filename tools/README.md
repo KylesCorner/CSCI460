@@ -71,7 +71,7 @@ My configuration has some extra keybinds and side effects.
 - `o and O` keeps you in command mode instead of putting you into insert mode
   after creating a new line.
 
-## Installion
+## Installation
 Paste this into your terminal.
 ```bash
 sudo apt install vim
@@ -83,4 +83,7 @@ wget https://github.com/KylesCorner/CSCI460/blob/master/tools/.vimrc
 ```bash
 vim textfile.txt
 ```
-Here is a brief [lesson on vim](https://datascientest.com/en/vim-the-comprehensive-guide-to-this-text-editor).
+Vim has a built in tutorial.
+```bash
+vimtutor
+```
