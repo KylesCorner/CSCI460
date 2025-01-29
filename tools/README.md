@@ -14,9 +14,11 @@ script instead of running the commands
 -`sudo make -j2 install`.
 
 ### Installation
+<button onclick="navigator.clipboard.writeText('your text here')">Copy</button>
 
-`wget https://github.com/KylesCorner/CSCI460/blob/master/tools/init_make.sh`\
-`sudo chmod +x init_make.sh`
+```bash
+wget https://github.com/KylesCorner/CSCI460/blob/master/tools/init_make.sh
+sudo chmod +x init_make.sh```
 
 Near the top of the file there should be two variables that need to be remapped.
 - `KERNEL_DIR` should be the path to the linux kernel folder on your machine.
