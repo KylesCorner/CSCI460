@@ -45,7 +45,7 @@ for NAME in "${COMMANDS[@]}"; do
 		else
 			echo "Error detected in $ERROR_LOG. Stopping further builds."
 			echo "Here's a sample of the error log."
-			head -n 10 "$ERROR_LOG"
+			tail -n 10 "$ERROR_LOG"
 			exit 1
 		fi
             ;;
@@ -58,7 +58,7 @@ for NAME in "${COMMANDS[@]}"; do
 		else
 			echo "Error detected in $ERROR_LOG. Stopping further builds."
 			echo "Here's a sample of the error log."
-			head -n 10 "$ERROR_LOG"
+			tail -n 10 "$ERROR_LOG"
 			exit 1
 		fi
             ;;
@@ -71,7 +71,7 @@ for NAME in "${COMMANDS[@]}"; do
 		else
 			echo "Error detected in $ERROR_LOG. Stopping further builds."
 			echo "Here's a sample of the error log."
-			head -n 10 "$ERROR_LOG"
+			tail -n 10 "$ERROR_LOG"
 			exit 1
 		fi
             ;;
@@ -84,7 +84,7 @@ for NAME in "${COMMANDS[@]}"; do
 		else
 			echo "Error detected in $ERROR_LOG. Stopping further builds."
 			echo "Here's a sample of the error log."
-			head -n 10 "$ERROR_LOG"
+			tail -n 10 "$ERROR_LOG"
 			exit 1
 		fi
             ;;

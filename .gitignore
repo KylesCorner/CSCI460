@@ -2,3 +2,5 @@
 *.log
 *.out
 *.txt
+*.out
+/bash/:wq
