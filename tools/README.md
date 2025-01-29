@@ -92,3 +92,5 @@ vimtutor
 ```
 Here is a list of
 [default keybinds and commands](https://vim.rtorr.com/).
+
+[Useful youtube tutorial](https://www.youtube.com/watch?v=X6AR2RMB5tE&list=PLm323Lc7iSW_wuxqmKx_xxNtJC_hJbQ7R&t=41s&ab_channel=ThePrimeagen)
