@@ -11,7 +11,7 @@ script instead of running these commands
 - `cd /home/kernel/linux-hwe-4.15.0`
 - `sudo make -j2 CC="ccache gcc"`
 - `sudo make -j2 modules_install`
-- `sudo make -j2 install`.
+- `sudo make -j2 install`
 
 ### Installation
 Paste this into your terminal.
@@ -65,7 +65,7 @@ From [vims website](https://www.vim.org/)
 > and with Apple OS X.
 
 Here is my configuration for vim, or `.vimrc`, on my virtual machine. Vim has a steep learning
-curve, but in my opinion it's the fastest way to write code. 
+curve, but in my opinion, **it's the fastest way to write code.** 
 
 My configuration has some extra keybinds and side effects.
 - `jk` pressed in quick succession puts you into command mode. Equivalent to `esc`.
