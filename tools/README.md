@@ -32,9 +32,9 @@ Near the top of the file there should be two variables that need to be remapped.
 ## Grub Menu(Fixed)
 `grub-menu.sh` is Ahn's script from the [programming
 assignment](https://canvas.umt.edu/courses/18301/assignments/228633).
-I fixed the syntax errors. The script doesn't actully affect grub in any way. It
+I fixed the syntax errors. The script doesn't actually affect grub in any way. It
 just views the configuration file with a pretty menu, with no way to change
-anything.
+anything. Requires sudo permission.
 ### Installation
 Paste this into your terminal.
 ```bash
