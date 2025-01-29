@@ -8,13 +8,15 @@ order to do this.\
 In order for you to use this script you will need to edit the `KERNEL_DIR` and
 `LOG_DIR` variables to fit your system. For the [programming
 assignment](https://canvas.umt.edu/courses/18301/assignments/228633) use this
-script instead of running the commands `cd /home/kernel/linux-hwe-4.15.0`, `sudo
-make -j2 CC="ccache gcc"`, `sudo make -j2 modules_install` and `sudo make -j2
-install`. \
+script instead of running the commands 
+- `cd /home/kernel/linux-hwe-4.15.0`
+- `sudo make -j2 CC="ccache gcc"`
+- `sudo make -j2 modules_install`
+-`sudo make -j2 install`.
 
 ### Installation
 
-`wget https://github.com/KylesCorner/CSCI460/blob/master/tools/init_make.sh`
+`wget https://github.com/KylesCorner/CSCI460/blob/master/tools/init_make.sh`\
 `sudo chmod +x init_make.sh`
 
 Near the top of the file there should be two variables that need to be remapped.
