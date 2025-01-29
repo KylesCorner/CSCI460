@@ -1,3 +1,6 @@
+# pa_1_helper.sh
+#
+# This prints out the syscall made in programming assignment 1 part a
 KERNEL_DIR="/home/kernel/linux-6.8/"
 
 
