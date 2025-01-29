@@ -8,5 +8,5 @@ Kernel documentation for adding a new [system call](https://www.kernel.org/doc/h
 
 ## Tool Chain
 For 'init_make.sh' you need to edit the 'KERNEL_DIR' and 'LOGS_DIR' to fit your
-system. The script replaces the need to run the 'make' commands listed in the
+system. Run this script instead of the 'make' commands listed in the
 [programming assignment](https://canvas.umt.edu/courses/18301/assignments/228633).
