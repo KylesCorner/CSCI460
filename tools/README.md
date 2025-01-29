@@ -11,7 +11,7 @@ script instead of running the commands
 - `cd /home/kernel/linux-hwe-4.15.0`
 - `sudo make -j2 CC="ccache gcc"`
 - `sudo make -j2 modules_install`
--`sudo make -j2 install`.
+- `sudo make -j2 install`.
 
 ### Installation
 Paste this into your terminal.
