@@ -7,7 +7,7 @@ order to do this. Requires sudo permission.
 
 For the [programming
 assignment](https://canvas.umt.edu/courses/18301/assignments/228633) use this
-script instead of running the commands 
+script instead of running these commands 
 - `cd /home/kernel/linux-hwe-4.15.0`
 - `sudo make -j2 CC="ccache gcc"`
 - `sudo make -j2 modules_install`
