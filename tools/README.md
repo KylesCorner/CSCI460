@@ -65,7 +65,7 @@ From [vims website](https://www.vim.org/)
 > and with Apple OS X.
 
 Here is my configuration for vim on my virtual machine. Vim has a steep learning
-curve, but in my opinion it is the fastest way to write code. 
+curve, but in my opinion it's the fastest way to write code. 
 
 My configuration has some extra keybinds and side effects.
 - `jk` pressed in quick succession puts you into command mode. Equivalent to `esc`.
