@@ -3,10 +3,9 @@
 ## Speedy Kernel Compiler
 `init_make.sh` is a small bash script that runs the make commands necessary to
 compile the linux kernel. It will utilizes all processing cores on the system in
-order to do this.
+order to do this. Requires sudo permission.
 
-In order for you to use this script you will need to edit the `KERNEL_DIR` and
-`LOG_DIR` variables to fit your system. For the [programming
+For the [programming
 assignment](https://canvas.umt.edu/courses/18301/assignments/228633) use this
 script instead of running the commands 
 - `cd /home/kernel/linux-hwe-4.15.0`
