@@ -14,6 +14,7 @@ script instead of running the commands
 -`sudo make -j2 install`.
 
 ### Installation
+Paste this into your terminal.
 ```bash
 wget https://github.com/KylesCorner/CSCI460/blob/master/tools/init_make.sh
 sudo chmod +x init_make.sh
@@ -25,7 +26,6 @@ Near the top of the file there should be two variables that need to be remapped.
   files to be stored.
 
 ### Useful Example
-
 `sudo ./init_make.sh`
 
 
