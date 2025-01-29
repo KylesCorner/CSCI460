@@ -26,7 +26,9 @@ Near the top of the file there should be two variables that need to be remapped.
   files to be stored.
 
 ### Useful Example
-`sudo ./init_make.sh`
+```bash
+sudo ./init_make.sh
+```
 
 
 ## Grub Menu(Fixed)
@@ -63,8 +65,7 @@ From [vims website](https://www.vim.org/)
 > and with Apple OS X.
 
 Here is my configuration for vim on my virtual machine. Vim has a steep learning
-curve, but in my opinion it is the fastest way to write code. Here is a list of
-[default keybinds and commands](https://vim.rtorr.com/).
+curve, but in my opinion it is the fastest way to write code. 
 
 My configuration has some extra keybinds and side effects.
 - `jk` pressed in quick succession puts you into command mode. Equivalent to `esc`.
@@ -89,3 +90,5 @@ Vim has a built in tutorial.
 ```bash
 vimtutor
 ```
+Here is a list of
+[default keybinds and commands](https://vim.rtorr.com/).
