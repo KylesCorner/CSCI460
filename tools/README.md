@@ -34,8 +34,8 @@ sudo ./init_make.sh
 ## Grub Menu(Fixed)
 `grub-menu.sh` is Ahn's script from the [programming
 assignment](https://canvas.umt.edu/courses/18301/assignments/228633).
-I fixed the syntax errors. The script doesn't actually affect grub in any way. It
-just views the configuration file with a pretty menu, with no way to change
+I fixed the syntax errors. The script doesn't actually affect grub in anyway. It
+just views the configuration file with a pretty menu with no way to change
 anything. Requires sudo permission.
 ### Installation
 Paste this into your terminal.
