@@ -56,3 +56,8 @@ sudo reboot now
 `grub-reboot` does not reboot your computer. It assigns a kernel to boot into
 next restart.
 
+## Vim
+From [vims website](https://www.vim.org/)
+> Vim is a highly configurable text editor built to make creating and changing
+> any kind of text very efficient. It is included as "vi" with most UNIX systems
+> and with Apple OS X.
