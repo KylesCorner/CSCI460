@@ -34,8 +34,7 @@ Near the top of the file there should be two variables that need to be remapped.
 assignment](https://canvas.umt.edu/courses/18301/assignments/228633).
 I fixed the syntax errors. The script doesn't actully affect grub in any way. It
 just views the configuration file with a pretty menu, with no way to change
-anything. But we dont need to for the assignment so that fine.
-
+anything.
 ### Installation
 Paste this into your terminal.
 ```bash
