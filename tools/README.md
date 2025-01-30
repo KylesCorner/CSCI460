@@ -16,6 +16,7 @@ script instead of running these commands
 ### Installation
 Paste this into your terminal.
 ```bash
+sudo apt update && sudo apt install wget -y
 wget https://github.com/KylesCorner/CSCI460/blob/master/tools/init_make.sh
 sudo chmod +x init_make.sh
 ```
@@ -40,6 +41,7 @@ anything. Requires sudo permission.
 ### Installation
 Paste this into your terminal.
 ```bash
+sudo apt update && sudo apt install wget -y
 wget https://github.com/KylesCorner/CSCI460/blob/master/tools/grub-menu.sh
 sudo chmod +x grub-menu.sh
 ```
@@ -77,7 +79,7 @@ My configuration has some extra keybinds and side effects.
 ### Installation
 Paste this into your terminal.
 ```bash
-sudo apt install vim
+sudo apt update && sudo apt install vim wget -y
 cd ~
 wget https://github.com/KylesCorner/CSCI460/blob/master/tools/.vimrc
 ```
@@ -93,4 +95,3 @@ vimtutor
 Here is a list of
 [default keybinds and commands](https://vim.rtorr.com/).
 
-[Useful youtube tutorial](https://www.youtube.com/watch?v=X6AR2RMB5tE&list=PLm323Lc7iSW_wuxqmKx_xxNtJC_hJbQ7R&t=41s&ab_channel=ThePrimeagen)
