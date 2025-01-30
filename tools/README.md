@@ -68,7 +68,7 @@ assignment](https://canvas.umt.edu/courses/18301/assignments/228633).
 ### Installation
 ```bash
 sudo apt update && sudo apt install wget -y
-wget https://github.com/KylesCorner/CSCI460/blob/master/tools/pa_1_helper.sh 
+wget https://raw.githubusercontent.com/KylesCorner/CSCI460/refs/heads/master/tools/pa_1_helper.sh
 chmod +x pa_1_helper.sh
 ```
 These variables need to be changed:
