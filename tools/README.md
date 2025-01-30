@@ -60,6 +60,31 @@ sudo reboot now
 `grub-reboot` does not reboot your computer. It assigns a kernel to boot into
 next restart.
 
+## PA1A Zipper
+
+Used to gather and zip up submission files for the [programming
+assignment](https://canvas.umt.edu/courses/18301/assignments/228633).
+
+### Installation
+```bash
+sudo apt update && sudo apt install wget -y
+wget https://github.com/KylesCorner/CSCI460/blob/master/tools/pa_1_helper.sh 
+chmod +x pa_1_helper.sh
+```
+These variables need to be changed:
+- `KERNEL_DIR` is the working directory of your custom kernel in
+  `/home/kernel/`.
+
+- `TEST_PGM_DIR` is the direct path to your testing program.
+
+### Example
+```bash
+./pa_1_helper.sh
+```
+This will create `assignment.zip` in the same directory as the script, and peek
+inside of the zip file.
+
+
 ## Vim
 From [vims website](https://www.vim.org/)
 > Vim is a highly configurable text editor built to make creating and changing

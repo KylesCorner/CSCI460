@@ -12,6 +12,8 @@ TEST_PGM_DIR="/code/test_helloworld.c"
 # the -j option throws away the paths for the files in the zip folder
 sudo zip -j assignment.zip "$KERNEL_DIR/arch/x86/kernel/helloworld.c" "$TEST_PGM_DIR" "/var/log/syslog"
 
+# look inside zip file.
 unzip -l assignment.zip
+
 
 
