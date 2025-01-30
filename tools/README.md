@@ -17,7 +17,7 @@ script instead of running these commands
 Paste this into your terminal.
 ```bash
 sudo apt update && sudo apt install wget -y
-wget https://github.com/KylesCorner/CSCI460/blob/master/tools/init_make.sh
+wget https://raw.githubusercontent.com/KylesCorner/CSCI460/refs/heads/master/tools/init_make.sh
 sudo chmod +x init_make.sh
 ```
 
@@ -42,7 +42,7 @@ anything. Requires sudo permission.
 Paste this into your terminal.
 ```bash
 sudo apt update && sudo apt install wget -y
-wget https://github.com/KylesCorner/CSCI460/blob/master/tools/grub-menu.sh
+wget https://raw.githubusercontent.com/KylesCorner/CSCI460/refs/heads/master/tools/grub-menu.sh
 sudo chmod +x grub-menu.sh
 ```
 
@@ -106,7 +106,7 @@ Paste this into your terminal.
 ```bash
 sudo apt update && sudo apt install vim wget -y
 cd ~
-wget https://github.com/KylesCorner/CSCI460/blob/master/tools/.vimrc
+wget https://raw.githubusercontent.com/KylesCorner/CSCI460/refs/heads/master/tools/.vimrc
 ```
 
 ### Example
