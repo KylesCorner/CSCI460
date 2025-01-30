@@ -1,3 +1,4 @@
+#! /bin/bash
 # pa_1_helper.sh
 #
 # Zips up your assignment when finished.
