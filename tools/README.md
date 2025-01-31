@@ -95,7 +95,7 @@ These variables need to be changed:
 This will create `assignment.zip` in the same directory as the script, and peek
 inside of the zip file.
 
-## PA2A
+## PA2A Zipper
 Used to gather and zip up submission files for the [programming
 assignment](https://canvas.umt.edu/courses/18301/assignments/228634).
 
