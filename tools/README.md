@@ -1,4 +1,17 @@
 # Tools
+This is where I store all my tools for CSCI460. You are free to use them just
+scroll down and find the installation and usage examples. My tools include:
+
+
+- Speedy Kernel Compiler: uses all processing cores for kernel compilation.
+- Grub Menu(fixed): Ahn's script with fixed syntax errors.
+- PA1A Zipper: script that zips files for submission/
+- VIM config: my text editor of choice.
+
+Before you install any tools, install the dependencies.
+```bash
+sudo apt update && sudo apt install wget -y
+```
 
 ## Speedy Kernel Compiler
 `init_make.sh` is a small bash script that runs the make commands necessary to
@@ -16,7 +29,6 @@ script instead of running these commands
 ### Installation
 Paste this into your terminal.
 ```bash
-sudo apt update && sudo apt install wget -y
 wget https://raw.githubusercontent.com/KylesCorner/CSCI460/refs/heads/master/tools/init_make.sh
 sudo chmod +x init_make.sh
 ```
@@ -41,7 +53,6 @@ anything. Requires sudo permission.
 ### Installation
 Paste this into your terminal.
 ```bash
-sudo apt update && sudo apt install wget -y
 wget https://raw.githubusercontent.com/KylesCorner/CSCI460/refs/heads/master/tools/grub-menu.sh
 sudo chmod +x grub-menu.sh
 ```
@@ -67,7 +78,6 @@ assignment](https://canvas.umt.edu/courses/18301/assignments/228633).
 
 ### Installation
 ```bash
-sudo apt update && sudo apt install wget -y
 wget https://raw.githubusercontent.com/KylesCorner/CSCI460/refs/heads/master/tools/pa_1_helper.sh
 chmod +x pa_1_helper.sh
 ```
