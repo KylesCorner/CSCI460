@@ -5,7 +5,8 @@ scroll down and find the installation and usage examples. My tools include:
 
 - Speedy Kernel Compiler: uses all processing cores for kernel compilation.
 - Grub Menu(fixed): Ahn's script with fixed syntax errors.
-- PA1A Zipper: script that zips files for submission/
+- PA1A Zipper: script that zips files for submission.
+- PA2A Zipper: ^
 - VIM config: my text editor of choice.
 
 Before you install any tools, install the dependencies.
@@ -94,6 +95,27 @@ These variables need to be changed:
 This will create `assignment.zip` in the same directory as the script, and peek
 inside of the zip file.
 
+## PA2A
+Used to gather and zip up submission files for the [programming
+assignment](https://canvas.umt.edu/courses/18301/assignments/228634).
+
+### Installation
+```bash
+wget https://raw.githubusercontent.com/KylesCorner/CSCI460/refs/heads/master/tools/pa_1b_helper.sh
+chmod +x pa_1b_helper.sh
+```
+These variables need to be changed:
+- `KERNEL_DIR` is the working directory of your custom kernel in
+  `/home/kernel/`.
+
+- `TEST_PGM` is the direct path to your testing program.
+
+### Example
+```bash
+./pa_1b_helper.sh
+```
+This will create `assignment1b.zip` in the same directory as the script, and peek
+inside of the zip file.
 
 ## Vim
 From [vims website](https://www.vim.org/)
