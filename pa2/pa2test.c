@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include <string.h>
 
+// By Kyle Krstulich
+
 int main(int argc, char *argv[]) {
     // Parse command-line input
     if (argc != 2) {
