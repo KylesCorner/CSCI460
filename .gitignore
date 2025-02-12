@@ -3,4 +3,5 @@
 *.out
 *.txt
 *.out
-/bash/:wq
+*.swp
+
