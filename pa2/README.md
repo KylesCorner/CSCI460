@@ -26,3 +26,27 @@ The test program takes a filename as input and allows interactive file manipulat
 - **`s`** - Seek to a specified position.
 - **`Ctrl+D`** - Exit the program.
 
+# [Part B](https://canvas.umt.edu/courses/18301/assignments/228637)
+
+Major number 155 was unused.
+
+I documented by major number in the file:
+```
+/home/kernel/linux-6.8/Documentation/admin-guide/devices.txt
+```
+
+Then I ran the command:
+
+```sh
+sudo mknod -m 777 /dev/simple_character_device c 155 0
+```
+- m 777 sets the permission so that all users can read, write and execute the
+  file.
+
+- simple_character_device is the name of the device file
+
+- c specifies the type of driver, in this case a character driver
+
+- 155 is the major number of the driver that will be associated with this device file
+
+- 0 is the minor number of the device
