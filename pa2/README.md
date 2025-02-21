@@ -42,7 +42,8 @@ Open the devices.txt file:
 ```bash
 vim /home/kernel/linux-6.8/Documentation/admin-guide/devices.txt​
 ```
-In the block labeled non-serial major numbers find a number with no assignment. I found the number 155
+In the block labeled non-serial major numbers find a number with no assignment.
+I found the number 155.
 
 ## **Installation & Usage**
 ### **1. Compile the Driver**
