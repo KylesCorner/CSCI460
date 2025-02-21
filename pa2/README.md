@@ -56,24 +56,47 @@ make
 sudo insmod pa2_char_driver.ko
 ```
 
-### **3. Create a Device Node**
-```bash
-sudo mknod -m 777 /dev/pa2_char_device c 155 0
-```
 
-### **4. Run the Test Program**
+### **3. Run the Test Program**
 ```bash
 ./pa2test /dev/pa2_char_device
 ```
 
-### **5. Unload the Module**
+### **4. Unload the Module**
 ```bash
 sudo rmmod pa2_char_driver
 ```
 
-### **6. Verification**
+### **5. Verification**
 ```bash
 dmesg | tail
+```
+You should get an output simlar to this:
+```bash
+[16126.006893] Exiting the character device
+[16143.402680] CSCI460: Initializing the character device
+[17201.769553] CSCI460: Exiting the character device
+[17213.556139] CSCI460: Initializing the character device
+[17213.556149] CSCI460: pa2_char_driver: registered with major number 155
+[17246.253079] CSCI460: Device opened 1 times
+[17246.253100] CSCI460: Read 1024 bytes from the device
+[17246.253129] CSCI460: Device closed 1 times
+[17265.443724] CSCI460: Device opened 2 times
+[17383.201281] CSCI460: Wrote 10 bytes to the device
+[17388.478910] CSCI460: Read 100 bytes from the device
+[17404.080258] CSCI460: Read 100 bytes from the device
+[17478.528239] CSCI460: Device closed 2 times
+[18856.981366] CSCI460: Exiting the character device
+[20082.826637] CSCI460: Initializing the character device
+[20082.826669] CSCI460: pa2_char_driver: registered with major number 155
+[20172.148005] CSCI460: Exiting the character device
+[20192.116233] CSCI460: Initializing the character device
+[20192.116246] CSCI460: pa2_char_driver: registered with major number 155
+[20199.312957] CSCI460: Device opened 1 times
+[20204.609092] CSCI460: Wrote 7 bytes to the device
+[20210.577820] CSCI460: Read 100 bytes from the device
+[20214.888042] CSCI460: Device closed 1 times
+[20226.638004] CSCI460: Exiting the character device
 ```
 
 Manual test:
