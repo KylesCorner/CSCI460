@@ -4,4 +4,19 @@
 *.txt
 *.out
 *.swp
+*.o
+*.ko
+*.mod
+*.mod.c
+*.mod.cmd
+*.mod.ko
+*.mod.o.ko
+*.mod.o.cmd
+*.ko.cmd
+*.o.cmd
 
+pa2/Module.symvers
+pa2/modules.order
+pa2/.Module.symvers.cmd
+pa2/.clangd
+pa2/.modules.order.cmd
