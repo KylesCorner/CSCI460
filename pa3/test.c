@@ -56,8 +56,6 @@ void singleton_test(circleQueue *my_queue) {
   printf(" ----- Singleton Tests done! -----\n");
 }
 
-void edge_cases() {}
-
 void *produce(void *arg) {
 
   circleQueue *q = (circleQueue *)arg;
