@@ -4,19 +4,6 @@
  *
  * This is a thread safe circular queue
  *
- * Some useful links
- *
- * P thread init
- * https://man7.org/linux/man-pages/man3/pthread_mutex_lock.3.html
- *
- * P thread lock/trylock/unlock
- * https://man7.org/linux/man-pages/man3/pthread_mutex_lock.3p.html
- *
- * P thread create
- * https://man7.org/linux/man-pages/man3/pthread_create.3.html
- *
- * P thread wait
- * https://pubs.opengroup.org/onlinepubs/7908799/xsh/pthread_cond_wait.html
  */
 #include "array.h"
 #include <pthread.h>
@@ -25,8 +12,6 @@
 
 
 int circleQueue_init(circleQueue *q) {
-
-  // TODO: abort on error.
 
   q->rear = -1;
   q->front = -1;
@@ -38,6 +23,7 @@ int circleQueue_init(circleQueue *q) {
     if ((q->data[i] = 0)) {
       fprintf(stderr, "Unable to create array\n");
       return -1;
+      exit(EXIT_FAILURE);
     }
   }
   return 0;
