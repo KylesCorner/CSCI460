@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 #define NUM_THREADS 6
-#define NUM_WRITES 100
+#define NUM_WRITES 1000000
 
 void singleton_test(circleQueue *my_queue) {
 
