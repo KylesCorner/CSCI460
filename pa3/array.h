@@ -4,15 +4,17 @@
 #define QUEUE_SIZE 10
 
 #include <pthread.h>
+#include <semaphore.h>
 
 
 typedef struct{
   int data[QUEUE_SIZE];
   int rear;
   int front;
+  int count;
   pthread_mutex_t lock;
-  pthread_cond_t not_empty;
-  pthread_cond_t not_full;
+  sem_t empty;
+  sem_t full;
 }circleQueue;
 
 int circleQueue_init(circleQueue *q);

@@ -7,6 +7,7 @@
  */
 #include "array.h"
 #include <pthread.h>
+#include <semaphore.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -15,9 +16,10 @@ int circleQueue_init(circleQueue *q) {
 
   q->rear = -1;
   q->front = -1;
+  q->count = 0;
   pthread_mutex_init(&q->lock, NULL);
-  pthread_cond_init(&q->not_empty, NULL);
-  pthread_cond_init(&q->not_full, NULL);
+  sem_init(&q->empty, 0, QUEUE_SIZE);
+  sem_init(&q->full,0,0);
 
   for (int i = 0; i < QUEUE_SIZE; i++) {
     if ((q->data[i] = 0)) {
@@ -30,10 +32,12 @@ int circleQueue_init(circleQueue *q) {
 }
 int circleQueue_enqueue(circleQueue *q, int value) {
 
+  // while ((q->rear + 1) % QUEUE_SIZE == q->front) {
+  //   pthread_cond_wait(&q->not_full, &q->lock);
+  // }
+
+  sem_wait(&q->empty);
   pthread_mutex_lock(&q->lock);
-  while ((q->rear + 1) % QUEUE_SIZE == q->front) {
-    pthread_cond_wait(&q->not_full, &q->lock);
-  }
 
   // queue is full
   if ((q->rear + 1) % QUEUE_SIZE == q->front) {
@@ -51,18 +55,21 @@ int circleQueue_enqueue(circleQueue *q, int value) {
   q->rear = (q->rear + 1) % QUEUE_SIZE;
   q->data[q->rear] = value;
 
-  pthread_cond_signal(&q->not_empty);
+  q->count++;
+
   pthread_mutex_unlock(&q->lock);
+  sem_post(&q->full);
 
   return 0;
 }
 
 int circleQueue_dequeue(circleQueue *q) {
 
+  // while (q->front == -1) {
+  //   pthread_cond_wait(&q->not_empty, &q->lock);
+  // }
+  sem_wait(&q->full);
   pthread_mutex_lock(&q->lock);
-  while (q->front == -1) {
-    pthread_cond_wait(&q->not_empty, &q->lock);
-  }
 
   // queue is already empty
   if (q->front == -1) {
@@ -81,8 +88,12 @@ int circleQueue_dequeue(circleQueue *q) {
     // increment front counter
     q->front = (q->front + 1) % QUEUE_SIZE;
   }
-  pthread_cond_signal(&q->not_full);
+
+  q->count--;
+
+  // pthread_cond_signal(&q->not_full);
   pthread_mutex_unlock(&q->lock);
+  sem_post(&q->empty);
 
   return temp;
 }
@@ -101,8 +112,8 @@ int circleQueue_peek(circleQueue *q, int index) {
 
 void circleQueue_free(circleQueue *q) {
   pthread_mutex_destroy(&q->lock);
-  pthread_cond_destroy(&q->not_empty);
-  pthread_cond_destroy(&q->not_full);
+  sem_destroy(&q->empty);
+  sem_destroy(&q->full);
 }
 
 void circleQueue_print(circleQueue *q) {
@@ -113,6 +124,6 @@ void circleQueue_print(circleQueue *q) {
     printf("%d, ", q->data[i]);
   }
   printf("]\n");
-  printf("Front=%d Rear=%d\n", q->front, q->rear);
+  printf("Front=%d Rear=%d Count=%d\n", q->front, q->rear, q->count);
   pthread_mutex_unlock(&q->lock);
 }

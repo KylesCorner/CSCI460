@@ -5,7 +5,7 @@
 #include "array.h"
 #include <stdio.h>
 
-#define NUM_THREADS 6
+#define NUM_THREADS 12
 #define NUM_WRITES 1000000
 
 void singleton_test(circleQueue *my_queue) {
@@ -99,12 +99,29 @@ void thread_test(circleQueue *q) {
   for (int i = 0; i < NUM_THREADS; i++){
     pthread_join(thread_ids[i], NULL);
   }
+  
+  //create reader threads
+  for (int i = NUM_THREADS/2; i < NUM_THREADS; i++){
+    pthread_create(&thread_ids[i], NULL, consume, q);
+    printf("Consumer thread created id=%ld\n", thread_ids[i]);
+  }
 
+  //create writer threads
+  for (int i = 0; i < NUM_THREADS/2; i++){
+    pthread_create(&thread_ids[i], NULL, produce, q);
+    printf("Producer thread created id=%ld\n", thread_ids[i]);
+  }
+
+  //wait for threads to finish
+  for (int i = 0; i < NUM_THREADS; i++){
+    pthread_join(thread_ids[i], NULL);
+  }
 
   circleQueue_free(q);
 }
 
 int main() {
+
   circleQueue my_queue;
   circleQueue_init(&my_queue);
   singleton_test(&my_queue);
@@ -116,4 +133,5 @@ int main() {
 
 
   pthread_exit(NULL);
+  return 0;
 }
