@@ -10,7 +10,7 @@
 #include <semaphore.h>
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 
 int circleQueue_init(circleQueue *q) {
 
@@ -18,34 +18,27 @@ int circleQueue_init(circleQueue *q) {
   q->front = -1;
   q->count = 0;
   pthread_mutex_init(&q->lock, NULL);
-  sem_init(&q->empty, 0, QUEUE_SIZE);
-  sem_init(&q->full,0,0);
+  pthread_cond_init(&q->not_empty, NULL);
+  pthread_cond_init(&q->not_full, NULL);
 
   for (int i = 0; i < QUEUE_SIZE; i++) {
-    if ((q->data[i] = 0)) {
-      fprintf(stderr, "Unable to create array\n");
-      return -1;
-      exit(EXIT_FAILURE);
-    }
+    q->data[i] = NULL;
   }
   return 0;
 }
-int circleQueue_enqueue(circleQueue *q, int value) {
+int circleQueue_enqueue(circleQueue *q, char *value) {
 
-  // while ((q->rear + 1) % QUEUE_SIZE == q->front) {
-  //   pthread_cond_wait(&q->not_full, &q->lock);
-  // }
-
-  sem_wait(&q->empty);
   pthread_mutex_lock(&q->lock);
 
   // queue is full
+  while ((q->rear + 1) % QUEUE_SIZE == q->front) {
+    pthread_cond_wait(&q->not_full, &q->lock);
+  }
   if ((q->rear + 1) % QUEUE_SIZE == q->front) {
     fprintf(stderr, "Queue overflow!\n");
     // print error code
     return -1;
   }
-
   // queue is empty
   if (q->front == -1) {
     q->front++;
@@ -53,31 +46,31 @@ int circleQueue_enqueue(circleQueue *q, int value) {
 
   // increment rear counter
   q->rear = (q->rear + 1) % QUEUE_SIZE;
-  q->data[q->rear] = value;
+  q->data[q->rear] = strdup(value);
 
   q->count++;
 
+  pthread_cond_signal(&q->not_empty);
   pthread_mutex_unlock(&q->lock);
-  sem_post(&q->full);
 
   return 0;
 }
 
-int circleQueue_dequeue(circleQueue *q) {
+char *circleQueue_dequeue(circleQueue *q) {
 
-  // while (q->front == -1) {
-  //   pthread_cond_wait(&q->not_empty, &q->lock);
-  // }
-  sem_wait(&q->full);
   pthread_mutex_lock(&q->lock);
 
+  while (q->front == -1) {
+    pthread_cond_wait(&q->not_empty, &q->lock);
+  }
   // queue is already empty
   if (q->front == -1) {
     fprintf(stderr, "Queue Underflow!\n");
-    return -1;
+    return "";
   }
 
-  int temp = q->data[q->front];
+  char *temp = q->data[q->front];
+  free(q->data[q->front]);
   q->data[q->front] = 0;
 
   if (q->front == q->rear) {
@@ -91,29 +84,45 @@ int circleQueue_dequeue(circleQueue *q) {
 
   q->count--;
 
-  // pthread_cond_signal(&q->not_full);
+  pthread_cond_signal(&q->not_full);
   pthread_mutex_unlock(&q->lock);
-  sem_post(&q->empty);
 
   return temp;
 }
-
-int circleQueue_peek(circleQueue *q, int index) {
-
+char *circleQueue_peek(circleQueue *q, int index) {
   pthread_mutex_lock(&q->lock);
-  if (index > QUEUE_SIZE || index < 0) {
-    fprintf(stderr, "Index out of bounds!");
+
+  // Check if the index is valid
+  if (index < 0 || index >= q->count) {
+    fprintf(stderr, "Index out of bounds!\n");
+    pthread_mutex_unlock(&q->lock);
+    return NULL; // Return NULL if the index is invalid
   }
 
-  int temp = q->data[index];
+  // Calculate the actual position of the item in the circular queue
+  int actual_index = (q->front + index) % QUEUE_SIZE;
+
+  char *temp =
+      q->data[actual_index]; // Retrieve the string at the calculated position
+
   pthread_mutex_unlock(&q->lock);
-  return temp;
+
+  return temp; // Return the string at the given index
 }
 
 void circleQueue_free(circleQueue *q) {
+  pthread_mutex_lock(&q->lock);
+  // Free the strings in the queue
+  for (int i = 0; i < QUEUE_SIZE; i++) {
+    if (q->data[i] != NULL) {
+      free(q->data[i]); // Free each string pointer
+    }
+  }
+  // destroy sephamores and mutex
+  pthread_mutex_unlock(&q->lock);
+  pthread_cond_destroy(&q->not_full);
+  pthread_cond_destroy(&q->not_empty);
   pthread_mutex_destroy(&q->lock);
-  sem_destroy(&q->empty);
-  sem_destroy(&q->full);
 }
 
 void circleQueue_print(circleQueue *q) {
@@ -121,7 +130,7 @@ void circleQueue_print(circleQueue *q) {
   pthread_mutex_lock(&q->lock);
   printf("[");
   for (int i = 0; i < QUEUE_SIZE; i++) {
-    printf("%d, ", q->data[i]);
+    printf("%s, ", q->data[i]);
   }
   printf("]\n");
   printf("Front=%d Rear=%d Count=%d\n", q->front, q->rear, q->count);

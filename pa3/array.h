@@ -8,19 +8,19 @@
 
 
 typedef struct{
-  int data[QUEUE_SIZE];
+  char* data[QUEUE_SIZE];
   int rear;
   int front;
   int count;
   pthread_mutex_t lock;
-  sem_t empty;
-  sem_t full;
+  pthread_cond_t not_empty;
+  pthread_cond_t not_full;
 }circleQueue;
 
 int circleQueue_init(circleQueue *q);
-int circleQueue_enqueue(circleQueue *q, int value);
-int circleQueue_dequeue(circleQueue *q);
-int circleQueue_peek(circleQueue *q, int index);
+int circleQueue_enqueue(circleQueue *q, char* value);
+char* circleQueue_dequeue(circleQueue *q);
+char* circleQueue_peek(circleQueue *q, int index);
 void circleQueue_free(circleQueue *q);
 void circleQueue_print(circleQueue *q);
 

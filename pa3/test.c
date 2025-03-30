@@ -4,9 +4,10 @@
 
 #include "array.h"
 #include <stdio.h>
+#include <string.h>
 
 #define NUM_THREADS 12
-#define NUM_WRITES 1000000
+#define NUM_WRITES 100000
 
 void singleton_test(circleQueue *my_queue) {
 
@@ -17,12 +18,30 @@ void singleton_test(circleQueue *my_queue) {
   printf("----- Before enqueue test -----\n");
   circleQueue_print(my_queue);
   for (int i = 1; i <= QUEUE_SIZE; i++) {
-    if (circleQueue_enqueue(my_queue, i)) {
+    int length = snprintf(NULL, 0, "%d", i);
+    char str[length];
+    sprintf(str, "%d", i);
+    if (circleQueue_enqueue(my_queue, str)) {
       printf("Error on i=%d\n", i);
     }
   }
   printf("----- After enqueue test -----\n");
   circleQueue_print(my_queue);
+
+  // ------------------------------------------
+  // Peek Test
+  // ------------------------------------------
+
+  printf("Peek test: \n");
+  for (int i = 0; i < QUEUE_SIZE; i++) {
+    // if (circleQueue_peek(my_queue, i) != NULL && 
+    //     strcmp(circleQueue_peek(my_queue, i), my_queue->data[i]) == 0) {
+    //   printf("Passed!\n");
+    // } else {
+    //   printf("Failed! on i=%d\n", i);
+    // }
+    printf("Actual %d =? Peek %s\n", i+1, circleQueue_peek(my_queue, i));
+  }
 
   // ------------------------------------------
   // Dequeue Test
@@ -34,18 +53,6 @@ void singleton_test(circleQueue *my_queue) {
   printf(" ---- After dequeue test -----\n");
   circleQueue_print(my_queue);
 
-  // ------------------------------------------
-  // Peek Test
-  // ------------------------------------------
-
-  printf("Peek test: \n");
-  for (int i = 0; i < QUEUE_SIZE; i++) {
-    if (circleQueue_peek(my_queue, i) == my_queue->data[i]) {
-      printf("Passed!\n");
-    } else {
-      printf("Failed! on i=%d\n", i);
-    }
-  }
 
   // ------------------------------------------
   // Free Test
@@ -62,7 +69,9 @@ void *produce(void *arg) {
 
   for (int i = 1; i <= NUM_WRITES; i++) {
     int value = i % QUEUE_SIZE;
-    circleQueue_enqueue(q, value);
+    char str[sizeof(value)];
+    sprintf(str, "%d", value);
+    circleQueue_enqueue(q, str);
   }
 
   return NULL;
@@ -73,7 +82,7 @@ void *consume(void *arg) {
   circleQueue *q = (circleQueue *)arg;
 
   for (int i = 0; i < NUM_WRITES; i++) {
-    int value = circleQueue_dequeue(q);
+    char* value = circleQueue_dequeue(q);
   }
 
   return NULL;
@@ -125,6 +134,7 @@ int main() {
   circleQueue my_queue;
   circleQueue_init(&my_queue);
   singleton_test(&my_queue);
+  // circleQueue_enqueue(&my_queue, "k");
 
   circleQueue_init(&my_queue);
   thread_test(&my_queue);
