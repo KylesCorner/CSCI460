@@ -1,7 +1,6 @@
 /bash/logs
 *.log
 *.out
-*.txt
 *.out
 *.swp
 *.o
@@ -23,3 +22,4 @@ pa2/.clangd
 pa2/.modules.order.cmd
 
 pa3/multi-lookup
+pa3/*.txt
