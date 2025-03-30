@@ -1,5 +1,6 @@
 #include "multi-lookup.h"
 #include "array.h"
+#include "util.h"
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <pthread.h>
@@ -16,16 +17,29 @@ int total_hostnames_resolved = 0;
 // FIX: Invalid read of size 1
 
 void *requester_thread(void *arg) {
-  printf("Requester!\n");
   int serviced = 0;
   pthread_t thread_id = pthread_self();
   thread_args_t *args = (thread_args_t *)arg;
-  char **filenames = args->data_files;
 
-  for (int i = 0; filenames[i] != NULL; i++) {
-    FILE *input_file = fopen(filenames[i], "r");
+  while (1) {
+    pthread_mutex_lock(&args->file_index_lock);
+    int file_index = args->file_index;
+
+    if (file_index >= args->num_data_files) {
+      // All files have been processed
+      pthread_mutex_unlock(&args->file_index_lock);
+      break;
+    }
+
+    // Increment the file index for the next requester
+    args->file_index++;
+    pthread_mutex_unlock(&args->file_index_lock);
+    char *filename = args->data_files[file_index];
+
+
+    FILE *input_file = fopen(filename, "r");
     if (!input_file) {
-      fprintf(stderr, "Invalid file %s\n", filenames[i]);
+      fprintf(stderr, "Invalid file %s\n", filename);
       continue;
     }
 
@@ -34,11 +48,16 @@ void *requester_thread(void *arg) {
       hostname[strcspn(hostname, "\n")] = 0; // Remove newline
 
       circleQueue_enqueue(args->buffer, hostname);
+      pthread_cond_broadcast(&args->buffer->not_empty);
 
       pthread_mutex_lock(&args->requester_log_lock);
-      fprintf(requester_log, "%s\n", hostname);
+      if (requester_log) {
+        fprintf(requester_log, "%s\n", hostname);
+      }
       pthread_mutex_unlock(&args->requester_log_lock);
     }
+    pthread_cond_broadcast(&args->buffer->not_empty);
+    serviced++;
     fclose(input_file);
   }
 
@@ -47,12 +66,10 @@ void *requester_thread(void *arg) {
   pthread_mutex_unlock(&args->requester_active_lock);
 
   printf("thread %lx serviced %d files\n", thread_id, serviced);
-  pthread_cond_broadcast(&args->buffer->not_empty);
   return NULL;
 }
 
 void *resolver_thread(void *arg) {
-  printf("Resolver!\n");
   thread_args_t *args = (thread_args_t *)arg;
   pthread_t thread_id = pthread_self();
   int num_resolved = 0;
@@ -62,23 +79,40 @@ void *resolver_thread(void *arg) {
     while (args->buffer->count == 0) {
       pthread_mutex_lock(&args->requester_active_lock);
       if (args->num_active_requesters == 0) {
+        printf("thread %lx resolved %d hostnames\n", thread_id, num_resolved);
         pthread_mutex_unlock(&args->requester_active_lock);
         pthread_mutex_unlock(&args->buffer->lock);
-        printf("thread %lx resolved %d hostnames\n", thread_id, num_resolved);
         return NULL;
       }
       pthread_mutex_unlock(&args->requester_active_lock);
       pthread_cond_wait(&args->buffer->not_empty, &args->buffer->lock);
     }
+
     pthread_mutex_unlock(&args->buffer->lock);
 
+    // pthread_mutex_lock(&args->file_lock);
     char *hostname = circleQueue_dequeue(args->buffer);
-    char ip_address[MAX_IP_LENGTH] = "192.168.0.1";
+    // pthread_mutex_unlock(&args->file_lock);
+
+    pthread_cond_broadcast(&args->buffer->not_empty);
+
+    if (hostname == NULL) {
+      break;
+    }
+    char ip_address[MAX_IP_LENGTH];
+    // Do the DNS lookup
+    printf("Thread %lu: resolving '%s'\n", pthread_self(), hostname);
+    if (dnslookup(hostname, ip_address, sizeof(ip_address)) == UTIL_FAILURE) {
+      strcpy(ip_address, "NOT_RESOLVED");
+    }
 
     pthread_mutex_lock(&args->resolver_log_lock);
-    fprintf(resolver_log, "%s, %s\n", hostname, ip_address);
+    if (resolver_log) {
+      fprintf(resolver_log, "%s, %s\n", hostname, ip_address);
+    }
     pthread_mutex_unlock(&args->resolver_log_lock);
 
+    free(hostname);
     num_resolved++;
   }
 
@@ -114,11 +148,15 @@ int main(int argc, char *argv[]) {
   // args.requester_log = argv[3];
   // args.resolver_log = argv[4];
 
-  requester_log= fopen(argv[3], "w");
+  requester_log = fopen(argv[3], "w");
   resolver_log = fopen(argv[4], "w");
 
   if (!requester_log || !resolver_log) {
     fprintf(stderr, "Error opening log files.\n");
+    if (requester_log)
+      fclose(requester_log);
+    if (resolver_log)
+      fclose(resolver_log);
     return EXIT_FAILURE;
   }
 
@@ -138,6 +176,7 @@ int main(int argc, char *argv[]) {
   pthread_mutex_init(&args.requester_active_lock, NULL);
   pthread_mutex_init(&args.resolver_log_lock, NULL);
   pthread_mutex_init(&args.requester_log_lock, NULL);
+  pthread_mutex_init(&args.file_lock, NULL);
 
   pthread_t requesters[args.num_requesters], resolvers[args.num_resolvers];
 
@@ -151,6 +190,7 @@ int main(int argc, char *argv[]) {
   for (int i = 0; i < args.num_requesters; i++) {
     pthread_join(requesters[i], NULL);
   }
+
   for (int i = 0; i < args.num_resolvers; i++) {
     pthread_join(resolvers[i], NULL);
   }

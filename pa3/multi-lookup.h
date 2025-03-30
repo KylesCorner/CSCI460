@@ -28,6 +28,7 @@ typedef struct {
   pthread_mutex_t requester_active_lock;
   pthread_mutex_t resolver_log_lock;
   pthread_mutex_t file_index_lock;
+  pthread_mutex_t file_lock;
   int num_requesters;
   int num_active_requesters;
   int num_resolvers;
