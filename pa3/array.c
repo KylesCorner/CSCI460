@@ -37,6 +37,7 @@ int circleQueue_enqueue(circleQueue *q, char *value) {
   if ((q->rear + 1) % QUEUE_SIZE == q->front) {
     fprintf(stderr, "Queue overflow!\n");
     // print error code
+    pthread_mutex_unlock(&q->lock);
     return -1;
   }
   // queue is empty
@@ -47,6 +48,11 @@ int circleQueue_enqueue(circleQueue *q, char *value) {
   // increment rear counter
   q->rear = (q->rear + 1) % QUEUE_SIZE;
   q->data[q->rear] = strdup(value);
+  if (!q->data[q->rear]) {
+    fprintf(stderr, "Memory allocation failed\n");
+    pthread_mutex_unlock(&q->lock);
+    return -1;
+  }
 
   q->count++;
 
@@ -66,12 +72,12 @@ char *circleQueue_dequeue(circleQueue *q) {
   // queue is already empty
   if (q->front == -1) {
     fprintf(stderr, "Queue Underflow!\n");
-    return "";
+    pthread_mutex_unlock(&q->lock);
+    return NULL;
   }
 
   char *temp = q->data[q->front];
-  free(q->data[q->front]);
-  q->data[q->front] = 0;
+  q->data[q->front] = NULL;
 
   if (q->front == q->rear) {
     // queue is now empty
