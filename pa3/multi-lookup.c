@@ -33,8 +33,9 @@ void *requester_thread(void *arg) {
 
     // Increment the file index for the next requester
     args->file_index++;
-    pthread_mutex_unlock(&args->file_index_lock);
     char *filename = args->data_files[file_index];
+    args->data_files[file_index] = NULL;
+    pthread_mutex_unlock(&args->file_index_lock);
 
 
     FILE *input_file = fopen(filename, "r");
