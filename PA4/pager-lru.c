@@ -1,7 +1,6 @@
 /*
  * File: pager-lru-stack.c
  * Author:       Based on Andy Sayler / Dr. Alva Couch
- * Modified By:  ChatGPT
  * Description:
  *     LRU implementation using a stack per process.
  */
